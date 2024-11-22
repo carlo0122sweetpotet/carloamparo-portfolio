@@ -254,9 +254,9 @@ body {
         margin-bottom: 1px;
     }
     .bio {
-        text-align: left;
+        text-align: center;
         margin-top: 20px;
-        font-size: 14px;
+        font-size: 10px;
         line-height: 1.5;
         padding: 0;
     }
