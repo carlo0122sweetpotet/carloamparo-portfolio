@@ -214,8 +214,8 @@ body {
         margin-bottom: 24px;
     }
     .profile-photo {
-        width: 100px;
-        height: 100px;
+        width: 75px;
+        height: 75px;
         margin: 0;
         grid-area: photo;
     }
