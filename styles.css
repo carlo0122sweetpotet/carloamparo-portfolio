@@ -30,8 +30,9 @@ body {
 .container {
     max-width: 935px;
     margin: 0 auto;
-    /* Changed from margin-bottom: 0 to margin: 0 auto */
     padding: 20px;
+    position: relative;
+    /* Added to contain the theme toggle button */
 }
 
 .profile-header {
@@ -157,8 +158,8 @@ body {
 }
 
 .theme-toggle {
-    position: fixed;
-    bottom: 80px;
+    position: absolute;
+    top: 20px;
     right: 20px;
     width: 50px;
     height: 50px;
@@ -198,16 +199,72 @@ body {
 }
 
 @media (max-width: 735px) {
+    .theme-toggle {
+        top: 16px;
+        right: 16px;
+        width: 40px;
+        height: 40px;
+        font-size: 18px;
+    }
     .profile-header {
-        gap: 20px;
-        justify-content: center;
-        text-align: center;
+        display: grid;
+        grid-template-areas: "photo stats" "info info";
+        gap: 0;
+        padding: 16px;
+        margin-bottom: 24px;
+    }
+    .profile-photo {
+        width: 100px;
+        height: 100px;
+        margin: 0;
+        grid-area: photo;
+    }
+    .profile-info {
+        width: 100%;
+        min-width: unset;
+        padding: 0 16px;
+    }
+    .profile-info h1 {
+        font-size: 20px;
+        font-weight: 500;
+        text-align: left;
+        margin-bottom: 20px;
     }
     .profile-stats {
-        justify-content: center;
+        grid-area: stats;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+        margin: 0;
+        padding: 0;
+        text-align: center;
+        border: none;
+        margin-left: 20px;
+        align-self: center;
+    }
+    .stat {
+        font-size: 14px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .stat b {
+        font-size: 22px;
+        font-weight: 600;
+        margin-bottom: 1px;
+    }
+    .bio {
+        text-align: left;
+        margin-top: 20px;
+        font-size: 14px;
+        line-height: 1.5;
+        padding: 0;
     }
     .grid {
-        gap: 3px;
+        gap: 10px;
+    }
+    .grid-item {
+        position: relative;
     }
     .tab-nav {
         justify-content: space-around;
@@ -232,20 +289,38 @@ body {
     .experience-description ul {
         padding-left: 25px;
     }
+    .project-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.8);
+        color: white;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 12px;
+        text-align: center;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        pointer-events: none;
+        /* Disable pointer events initially */
+    }
     .project-overlay h3 {
-        font-size: 1.2rem;
+        font-size: 1rem;
+        margin-bottom: 6px;
     }
     .project-overlay p {
-        font-size: 0.9rem;
+        font-size: 0.8rem;
+        margin-bottom: 10px;
     }
     .view-project {
-        padding: 6px 12px;
-        font-size: 0.8rem;
+        font-size: 0.7rem;
+        padding: 4px 10px;
     }
 }
-
-
-/* Touch Device Optimization */
 
 @media (hover: none) {
     .project-overlay {
@@ -432,9 +507,6 @@ body {
 .view-project i {
     margin-right: 5px;
 }
-
-
-/* Hover Effects */
 
 .grid-item:hover img {
     transform: scale(1.1);
