@@ -16,9 +16,11 @@
             <div class="profile-info">
                 <h1>Carlo Cabale Amparo</h1>
                 <div class="profile-stats">
-                    <div class="stat"><b>2</b> projects</div>
+                    <div class="stat"><b>4</b> projects</div>
                     <div class="stat"><b>5</b> years exp.</div>
-                    <div class="stat"><b>1</b> certifications</div>
+                    <div class="stat cert-stat">
+                        <b class="cert-count">3</b> certifications
+                    </div>
                 </div>
                 <div class="bio">
                     Geographic Information Systems Specialist<br>
@@ -152,6 +154,7 @@
                 </div>
             </div>
         </div>
+
         <div class="tab-content" id="about">
             <h3>About Me</h3>
             <div class="about-content">
@@ -233,6 +236,50 @@
     <button id="theme-toggle" class="theme-toggle">
         <i class="fas fa-moon"></i>
     </button>
+
+    <!-- Certification List Popup -->
+    <div id="cert-popup" class="cert-popup">
+        <div class="cert-popup-content">
+            <div class="cert-list">
+                <div class="cert-header">
+                    <h2>Certifications</h2>
+                    <button class="close-popup"><i class="fas fa-times"></i></button>
+                </div>
+                <div class="cert-items">
+                    <div class="cert-item" data-image="/assets/diploma.jpg">
+                        <div class="cert-info">
+                            <h4>College Diploma</h4>
+                            <p>Issued: April 10, 2019</p>
+                        </div>
+                        <span class="view-cert">View →</span>
+                    </div>
+                    <div class="cert-item" data-image="/assets/coe.png">
+                        <div class="cert-info">
+                            <h4>Certificate of Employment</h4>
+                            <p>Issued: July 24, 2023</p>
+                        </div>
+                        <span class="view-cert">View →</span>
+                    </div>
+                    <div class="cert-item" data-image="/assets/cert-of-recognition.jpg">
+                        <div class="cert-info">
+                            <h4>"App and Running" Academic Fair 2018</h4>
+                            <p>Issued: August 31, 2018</p>
+                        </div>
+                        <span class="view-cert">View →</span>
+                    </div>
+                    <!-- Add more cert-items here as needed -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Certificate Image Popup -->
+    <div id="cert-image-popup" class="cert-image-popup">
+        <div class="cert-image-content">
+            <button class="close-image-popup"><i class="fas fa-times"></i></button>
+            <img id="cert-image" src="" alt="Certificate">
+        </div>
+    </div>
 
     <footer class="footer">
         <div class="social-icons">

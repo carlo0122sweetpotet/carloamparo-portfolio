@@ -1,6 +1,7 @@
 const init = () => {
     setupTabSwitching();
     setupThemeToggle();
+    setupCertPopup();
 };
 
 const setupTabSwitching = () => {
@@ -47,6 +48,51 @@ const setupThemeToggle = () => {
         themeToggle.innerHTML = newTheme === 'dark' ?
             '<i class="fas fa-sun"></i>' :
             '<i class="fas fa-moon"></i>';
+    });
+};
+
+const setupCertPopup = () => {
+    const certCount = document.querySelector('.cert-count');
+    const certPopup = document.getElementById('cert-popup');
+    const imagePopup = document.getElementById('cert-image-popup');
+    const closePopup = document.querySelector('.close-popup');
+    const closeImagePopup = document.querySelector('.close-image-popup');
+    const certItems = document.querySelectorAll('.cert-item');
+    const certImage = document.getElementById('cert-image');
+
+    // Open certification list popup
+    certCount.addEventListener('click', () => {
+        certPopup.classList.add('active');
+    });
+
+    // Close certification list popup
+    closePopup.addEventListener('click', () => {
+        certPopup.classList.remove('active');
+    });
+
+    // Close image popup
+    closeImagePopup.addEventListener('click', () => {
+        imagePopup.classList.remove('active');
+    });
+
+    // Handle clicking outside popups to close them
+    window.addEventListener('click', (e) => {
+        if (e.target === certPopup) {
+            certPopup.classList.remove('active');
+        }
+        if (e.target === imagePopup) {
+            imagePopup.classList.remove('active');
+        }
+    });
+
+    // Handle certificate item clicks
+    certItems.forEach(item => {
+        item.addEventListener('click', () => {
+            const imageUrl = item.dataset.image;
+            certImage.src = imageUrl;
+            certPopup.classList.remove('active');
+            imagePopup.classList.add('active');
+        });
     });
 };
 
