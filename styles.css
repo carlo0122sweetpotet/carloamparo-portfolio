@@ -209,26 +209,30 @@ body {
     .profile-header {
         display: grid;
         grid-template-areas: "photo stats" "info info";
-        gap: 0;
+        gap: 10px;
         padding: 16px;
         margin-bottom: 24px;
+        align-items: center;
     }
     .profile-photo {
         width: 75px;
         height: 75px;
         margin: 0;
         grid-area: photo;
+        justify-self: start;
     }
     .profile-info {
+        grid-area: info;
         width: 100%;
         min-width: unset;
-        padding: 0 16px;
+        padding: 0;
+        text-align: left;
     }
     .profile-info h1 {
         font-size: 20px;
         font-weight: 500;
         text-align: left;
-        margin-bottom: 20px;
+        margin-bottom: 10px;
     }
     .profile-stats {
         grid-area: stats;
@@ -241,6 +245,7 @@ body {
         border: none;
         margin-left: 20px;
         align-self: center;
+        justify-self: end;
     }
     .stat {
         font-size: 14px;
@@ -254,8 +259,8 @@ body {
         margin-bottom: 1px;
     }
     .bio {
-        text-align: center;
-        margin-top: 20px;
+        text-align: left;
+        margin-top: 10px;
         font-size: 15px;
         line-height: 1.5;
         padding: 0;
