@@ -11,20 +11,48 @@
 
 <body>
     <div class="container">
+        <!-- Cover Photo Section -->
+        <div class="cover-photo-section">
+            <img src="assets/ado-mination.webp" alt="Cover Photo" class="cover-photo">
+            <div class="cover-overlay">
+                <h1 class="cover-title"></h1>
+                <p class="cover-subtitle"></p>
+            </div>
+            <!--button class="cover-edit-btn">
+                <i class="fas fa-camera"></i> Change Cover
+            </button -->
+        </div>
+        <button id="theme-toggle" class="theme-toggle">
+            <i class="fas fa-moon"></i>
+        </button>
         <div class="profile-header">
-            <img src="https://chocolatemintt1.github.io/carloamparo22/pfp_img.jpg" alt="Profile Photo" class="profile-photo">
+            <img src="assets/ado-pfp.webp" alt="Profile Photo" class="profile-photo">
+            <div class="profile-stats">
+                <div class="stat"><b>4</b> projects</div>
+                <div class="stat"><b>5</b> years exp.</div>
+                <div class="stat cert-stat">
+                    <b class="cert-count">4</b> certifications
+                </div>
+            </div>
             <div class="profile-info">
                 <h1>Carlo Cabale Amparo</h1>
-                <div class="profile-stats">
-                    <div class="stat"><b>2</b> projects</div>
-                    <div class="stat"><b>5</b> years exp.</div>
-                    <div class="stat"><b>1</b> certifications</div>
-                </div>
                 <div class="bio">
                     Geographic Information Systems Specialist<br>
                     <i>Philippine Statistics Authority - Dipolog</i><br>
                     <a href="mailto:carloamparo22@gmail.com">carloamparo22@gmail.com</a>
                 </div>
+            </div>
+            <div class="music-section" id="musicSection">
+                <div class="music-icon" id="musicIcon">
+                    <i class="fas fa-music"></i>
+                </div>
+                <div class="music-info">
+                    <h4 id="songTitle">Eien No Akuruhi</h4>
+                    <p id="songArtist">Ado</p>
+                </div>
+                <button class="play-pause-btn" id="playPauseBtn">
+                    <i class="fas fa-play"></i>
+                </button>
             </div>
         </div>
 
@@ -58,6 +86,28 @@
                     <div class="project-overlay">
                         <h3>MLBB Draft Pick Simulator</h3>
                         <p>JavaScript • React • Firebase</p>
+                        <span class="view-project">
+                            <i class="fas fa-external-link-alt"></i> View Project
+                        </span>
+                    </div>
+                </a>
+
+                <a href="https://word-search-puzzle-game.vercel.app/" class="grid-item" target="_blank" rel="noopener noreferrer">
+                    <img src="/assets/vercel.png" alt="Project 2">
+                    <div class="project-overlay">
+                        <h3>Word Search Puzzle Game</h3>
+                        <p>JavaScript • React</p>
+                        <span class="view-project">
+                            <i class="fas fa-external-link-alt"></i> View Project
+                        </span>
+                    </div>
+                </a>
+
+                <a href="https://trivia-quiz-game-five.vercel.app/" class="grid-item" target="_blank" rel="noopener noreferrer">
+                    <img src="/assets/trivia.jpg" alt="Project 2">
+                    <div class="project-overlay">
+                        <h3>Trivia Quiz Game</h3>
+                        <p>JavaScript • HTML/CSS</p>
                         <span class="view-project">
                             <i class="fas fa-external-link-alt"></i> View Project
                         </span>
@@ -130,6 +180,7 @@
                 </div>
             </div>
         </div>
+
         <div class="tab-content" id="about">
             <h3>About Me</h3>
             <div class="about-content">
@@ -208,13 +259,60 @@
         </div>
     </div>
 
-    <button id="theme-toggle" class="theme-toggle">
-        <i class="fas fa-moon"></i>
-    </button>
+    <!-- Certification List Popup -->
+    <div id="cert-popup" class="cert-popup">
+        <div class="cert-popup-content">
+            <div class="cert-list">
+                <div class="cert-header">
+                    <h2>Certifications</h2>
+                    <button class="close-popup"><i class="fas fa-times"></i></button>
+                </div>
+                <div class="cert-items">
+                    <div class="cert-item" data-image="/assets/diploma.jpg">
+                        <div class="cert-info">
+                            <h4>College Diploma</h4>
+                            <p>Issued: April 10, 2019</p>
+                        </div>
+                        <span class="view-cert">View →</span>
+                    </div>
+                    <div class="cert-item" data-image="/assets/coe.png">
+                        <div class="cert-info">
+                            <h4>Certificate of Employment</h4>
+                            <p>Issued: July 24, 2023</p>
+                        </div>
+                        <span class="view-cert">View →</span>
+                    </div>
+                    <div class="cert-item" data-image="/assets/cert-of-completion.png">
+                        <div class="cert-info">
+                            <h4>SMART Android Mobile Apps Development for Beginners</h4>
+                            <p>Issued: January 12, 2022</p>
+                        </div>
+                        <span class="view-cert">View →</span>
+                    </div>
+                    <div class="cert-item" data-image="/assets/cert-of-recognition.jpg">
+                        <div class="cert-info">
+                            <h4>"App and Running" Academic Fair 2018</h4>
+                            <p>Issued: August 31, 2018</p>
+                        </div>
+                        <span class="view-cert">View →</span>
+                    </div>
+                    <!-- Add more cert-items here as needed -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Certificate Image Popup -->
+    <div id="cert-image-popup" class="cert-image-popup">
+        <div class="cert-image-content">
+            <button class="close-image-popup"><i class="fas fa-times"></i></button>
+            <img id="cert-image" src="" alt="Certificate">
+        </div>
+    </div>
 
     <footer class="footer">
         <div class="social-icons">
-            <a href="https://www.facebook.com/smurf.carloamparo22" target="_blank" class="social-icon">
+            <a href="https://www.facebook.com/carlo0122imokenp" target="_blank" class="social-icon">
                 <i class="fab fa-facebook"></i>
             </a>
             <a href="https://tiktok.com/@chocolatemintt1?" target="_blank" class="social-icon">
@@ -223,10 +321,10 @@
             <a href="https://x.com/chocolatemintt1" target="_blank" class="social-icon">
                 <i class="fab fa-twitter"></i>
             </a>
-            <a href="https://www.youtube.com/@konose_1" target="_blank" class="social-icon">
+            <a href="https://www.youtube.com/@chocolate_mintt1" target="_blank" class="social-icon">
                 <i class="fab fa-youtube"></i>
             </a>
-            <a href="https://github.com/chocolatemintt1" target="_blank" class="social-icon">
+            <a href="https://github.com/carlo0122sweetpotet" target="_blank" class="social-icon">
                 <i class="fab fa-github"></i>
             </a>
         </div>
