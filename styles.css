@@ -30,9 +30,81 @@ body {
 .container {
     max-width: 935px;
     margin: 0 auto;
-    padding: 20px;
+    padding: 0;
     position: relative;
-    /* Added to contain the theme toggle button */
+}
+
+
+/* Cover Photo Styles */
+
+.cover-photo-section {
+    position: relative;
+    width: 100%;
+    height: 300px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 0 0 20px 20px;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+.cover-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+    /* Changed from 'cover' to 'fill' to stretch the image */
+    transition: transform 0.3s ease;
+}
+
+.cover-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.3) 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.cover-title {
+    font-size: 2.5rem;
+    font-weight: 300;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.cover-subtitle {
+    font-size: 1.1rem;
+    opacity: 0.9;
+    text-align: center;
+}
+
+.cover-edit-btn {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 14px;
+    cursor: pointer;
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+}
+
+.cover-edit-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+}
+
+.profile-container {
+    padding: 20px;
 }
 
 .profile-header {
@@ -48,6 +120,8 @@ body {
     border-radius: 50%;
     background: #eee;
     flex-shrink: 0;
+    border: 4px solid var(--card-bg);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .profile-info {
@@ -164,20 +238,21 @@ body {
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    background: var(--card-bg);
-    border: none;
-    color: var(--text-color);
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: white;
     cursor: pointer;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 20px;
-    transition: transform 0.3s;
+    transition: all 0.3s;
     z-index: 1000;
 }
 
 .theme-toggle:hover {
+    background: rgba(255, 255, 255, 0.3);
     transform: scale(1.1);
 }
 
@@ -198,7 +273,129 @@ body {
     color: var(--text-color);
 }
 
+.music-section {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    margin: 15px 0;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.music-section:hover {
+    background: var(--border-color);
+}
+
+.music-icon {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(45deg, #ff6b6b, #ff8e8e);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 16px;
+    animation: pulse 2s infinite;
+}
+
+.music-icon.playing {
+    animation: spin 3s linear infinite;
+}
+
+@keyframes pulse {
+    0%,
+    100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.music-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.music-info h4 {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.music-info p {
+    font-size: 12px;
+    color: var(--secondary-text);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.play-pause-btn {
+    background: none;
+    border: none;
+    color: var(--text-color);
+    font-size: 18px;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 50%;
+    transition: background 0.3s;
+}
+
+.play-pause-btn:hover {
+    background: var(--border-color);
+}
+
 @media (max-width: 735px) {
+    .music-section {
+        margin: 10px 0;
+        /* Changed from margin: 10px 15px; */
+    }
+    .container {
+        padding: 0 15px;
+        /* Add container padding for mobile */
+    }
+    .profile-container {
+        padding: 20px 15px;
+        /* Add horizontal padding */
+    }
+    .tab-content {
+        padding: 20px 15px;
+        /* Add horizontal padding to tab content */
+    }
+    .cover-photo-section {
+        height: 200px;
+        border-radius: 0 0 15px 15px;
+    }
+    .cover-title {
+        font-size: 1.8rem;
+    }
+    .cover-subtitle {
+        font-size: 1rem;
+    }
+    .cover-edit-btn {
+        bottom: 15px;
+        right: 15px;
+        padding: 6px 12px;
+        font-size: 12px;
+    }
     .theme-toggle {
         top: 16px;
         right: 16px;
@@ -209,26 +406,30 @@ body {
     .profile-header {
         display: grid;
         grid-template-areas: "photo stats" "info info";
-        gap: 0;
+        gap: 10px;
         padding: 16px;
         margin-bottom: 24px;
+        align-items: center;
     }
     .profile-photo {
         width: 75px;
         height: 75px;
         margin: 0;
         grid-area: photo;
+        justify-self: start;
     }
     .profile-info {
+        grid-area: info;
         width: 100%;
         min-width: unset;
-        padding: 0 16px;
+        padding: 0;
+        text-align: left;
     }
     .profile-info h1 {
         font-size: 20px;
         font-weight: 500;
         text-align: left;
-        margin-bottom: 20px;
+        margin-bottom: 10px;
     }
     .profile-stats {
         grid-area: stats;
@@ -241,6 +442,7 @@ body {
         border: none;
         margin-left: 20px;
         align-self: center;
+        justify-self: end;
     }
     .stat {
         font-size: 14px;
@@ -255,8 +457,8 @@ body {
     }
     .bio {
         text-align: left;
-        margin-top: 20px;
-        font-size: 14px;
+        margin-top: 10px;
+        font-size: 15px;
         line-height: 1.5;
         padding: 0;
     }
@@ -306,7 +508,6 @@ body {
         opacity: 0;
         transition: opacity 0.3s ease;
         pointer-events: none;
-        /* Disable pointer events initially */
     }
     .project-overlay h3 {
         font-size: 1rem;
@@ -525,4 +726,129 @@ body {
 .grid-item:hover .view-project {
     background: white;
     color: black;
+}
+
+
+/* Certification Popup Styles */
+
+.cert-count {
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.cert-count:hover {
+    color: #0095f6;
+}
+
+.cert-popup,
+.cert-image-popup {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+}
+
+.cert-popup.active,
+.cert-image-popup.active {
+    display: flex;
+}
+
+.cert-popup-content {
+    background-color: var(--card-bg);
+    border-radius: 12px;
+    width: 90%;
+    max-width: 500px;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.cert-header {
+    padding: 16px;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.cert-header h2 {
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.close-popup,
+.close-image-popup {
+    background: none;
+    border: none;
+    color: var(--text-color);
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 50%;
+}
+
+.close-popup:hover,
+.close-image-popup:hover {
+    background-color: var(--border-color);
+}
+
+.cert-items {
+    padding: 16px;
+}
+
+.cert-item {
+    padding: 16px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background-color 0.3s;
+}
+
+.cert-item:hover {
+    background-color: var(--border-color);
+}
+
+.cert-info h4 {
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.cert-info p {
+    color: var(--secondary-text);
+    font-size: 0.875rem;
+}
+
+.view-cert {
+    color: #0095f6;
+    font-size: 0.875rem;
+}
+
+.cert-image-content {
+    background-color: var(--card-bg);
+    padding: 24px;
+    border-radius: 12px;
+    position: relative;
+    max-width: 90%;
+    max-height: 90vh;
+}
+
+.cert-image-content img {
+    max-width: 100%;
+    max-height: 80vh;
+    border-radius: 8px;
+}
+
+.close-image-popup {
+    position: absolute;
+    right: 16px;
+    top: 16px;
+    background-color: var(--card-bg);
 }
