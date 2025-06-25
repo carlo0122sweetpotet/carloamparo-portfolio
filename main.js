@@ -2,6 +2,71 @@ const init = () => {
     setupTabSwitching();
     setupThemeToggle();
     setupCertPopup();
+    setupMusicPlayer();
+};
+
+const setupMusicPlayer = () => {
+    const musicSection = document.getElementById('musicSection');
+    const musicIcon = document.getElementById('musicIcon');
+    const playPauseBtn = document.getElementById('playPauseBtn');
+    const playIcon = playPauseBtn.querySelector('i');
+
+    let isPlaying = false;
+    let audio = null;
+
+    // You can replace this with your actual audio file
+    const audioSrc = 'assets/Eien-No-Akuruhi.mp3'; // Replace with your audio file path
+
+    playPauseBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        togglePlayPause();
+    });
+
+    musicSection.addEventListener('click', () => {
+        togglePlayPause();
+    });
+
+    function togglePlayPause() {
+        if (!audio) {
+            // Create audio element if it doesn't exist
+            audio = new Audio(audioSrc);
+            audio.addEventListener('ended', () => {
+                resetPlayer();
+            });
+        }
+
+        if (isPlaying) {
+            audio.pause();
+            resetPlayer();
+        } else {
+            audio.play().catch(err => {
+                console.log('Audio play failed:', err);
+                // Fallback: just show visual feedback without actual audio
+                showPlayingState();
+            });
+            showPlayingState();
+        }
+    }
+
+    function showPlayingState() {
+        isPlaying = true;
+        musicIcon.classList.add('playing');
+        playIcon.classList.remove('fa-play');
+        playIcon.classList.add('fa-pause');
+    }
+
+    function resetPlayer() {
+        isPlaying = false;
+        musicIcon.classList.remove('playing');
+        playIcon.classList.remove('fa-pause');
+        playIcon.classList.add('fa-play');
+    }
+
+    // Optional: Change song info dynamically
+    window.updateSongInfo = function(title, artist) {
+        document.getElementById('songTitle').textContent = title;
+        document.getElementById('songArtist').textContent = artist;
+    };
 };
 
 const setupTabSwitching = () => {
