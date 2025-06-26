@@ -7,66 +7,158 @@ const init = () => {
 
 const setupMusicPlayer = () => {
     const musicSection = document.getElementById('musicSection');
-    const musicIcon = document.getElementById('musicIcon');
+    const albumImage = document.getElementById('albumImage');
     const playPauseBtn = document.getElementById('playPauseBtn');
-    const playIcon = playPauseBtn.querySelector('i');
+    const songTitle = document.getElementById('songTitle');
+    const songArtist = document.getElementById('songArtist');
 
     let isPlaying = false;
     let audio = null;
 
-    // You can replace this with your actual audio file
-    const audioSrc = 'assets/Eien-No-Akuruhi.mp3'; // Replace with your audio file path
+    const audioSrc = 'assets/Eien-No-Akuruhi.mp3';
 
+    // Function to update the icon
+    function updateIcon(isPlaying) {
+        playPauseBtn.innerHTML = isPlaying ?
+            '<i class="fas fa-pause"></i>' :
+            '<i class="fas fa-play"></i>';
+        console.log('Icon updated to:', isPlaying ? 'pause' : 'play');
+    }
+
+    // Only the play/pause button controls music
     playPauseBtn.addEventListener('click', (e) => {
         e.stopPropagation();
         togglePlayPause();
     });
 
-    musicSection.addEventListener('click', () => {
-        togglePlayPause();
+    // Clicking on song title/artist opens the modal
+    songTitle.addEventListener('click', (e) => {
+        e.stopPropagation();
+        openSongModal();
+    });
+
+    songArtist.addEventListener('click', (e) => {
+        e.stopPropagation();
+        openSongModal();
     });
 
     function togglePlayPause() {
         if (!audio) {
-            // Create audio element if it doesn't exist
             audio = new Audio(audioSrc);
+
             audio.addEventListener('ended', () => {
+                console.log('Audio ended');
+                resetPlayer();
+            });
+
+            audio.addEventListener('error', (e) => {
+                console.log('Audio error:', e);
                 resetPlayer();
             });
         }
 
         if (isPlaying) {
+            console.log('Pausing audio');
             audio.pause();
             resetPlayer();
         } else {
-            audio.play().catch(err => {
-                console.log('Audio play failed:', err);
-                // Fallback: just show visual feedback without actual audio
-                showPlayingState();
-            });
-            showPlayingState();
+            console.log('Attempting to play audio');
+
+            const playPromise = audio.play();
+
+            if (playPromise !== undefined) {
+                playPromise.then(() => {
+                    console.log('Audio play successful');
+                    showPlayingState();
+                }).catch(error => {
+                    console.log('Audio play failed:', error);
+                    if (error.name === 'NotAllowedError') {
+                        console.log('Autoplay prevented - user interaction required');
+                    }
+                    resetPlayer();
+                });
+            }
         }
     }
 
     function showPlayingState() {
         isPlaying = true;
-        musicIcon.classList.add('playing');
-        playIcon.classList.remove('fa-play');
-        playIcon.classList.add('fa-pause');
+        albumImage.classList.add('playing');
+        updateIcon(true);
+        console.log('Showing playing state');
     }
 
     function resetPlayer() {
         isPlaying = false;
-        musicIcon.classList.remove('playing');
-        playIcon.classList.remove('fa-pause');
-        playIcon.classList.add('fa-play');
+        albumImage.classList.remove('playing');
+        updateIcon(false);
+        console.log('Reset to paused state');
     }
 
-    // Optional: Change song info dynamically
+    function openSongModal() {
+        // Create modal if it doesn't exist
+        let modal = document.getElementById('song-modal');
+        if (!modal) {
+            modal = createSongModal();
+            document.body.appendChild(modal);
+        }
+
+        // Update modal content
+        const modalAlbumImage = modal.querySelector('.modal-album-image');
+        const modalSongTitle = modal.querySelector('.modal-song-title');
+        const modalSongArtist = modal.querySelector('.modal-song-artist');
+
+        modalAlbumImage.src = albumImage.src;
+        modalSongTitle.textContent = songTitle.textContent;
+        modalSongArtist.textContent = songArtist.textContent;
+
+        // Show modal
+        modal.classList.add('active');
+    }
+
+    function createSongModal() {
+        const modal = document.createElement('div');
+        modal.id = 'song-modal';
+        modal.className = 'song-modal';
+
+        modal.innerHTML = `
+            <div class="song-modal-content">
+                <button class="close-song-modal">
+                    <i class="fas fa-times"></i>
+                </button>
+                <div class="modal-album-container">
+                    <img class="modal-album-image" src="" alt="Album Cover">
+                </div>
+                <div class="modal-song-info">
+                    <h3 class="modal-song-title"></h3>
+                    <p class="modal-song-artist"></p>
+                </div>
+            </div>
+        `;
+
+        // Add event listeners for closing modal
+        const closeBtn = modal.querySelector('.close-song-modal');
+        closeBtn.addEventListener('click', () => {
+            modal.classList.remove('active');
+        });
+
+        // Close modal when clicking outside
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.classList.remove('active');
+            }
+        });
+
+        return modal;
+    }
+
     window.updateSongInfo = function(title, artist) {
         document.getElementById('songTitle').textContent = title;
         document.getElementById('songArtist').textContent = artist;
     };
+
+    // Initialize with play icon
+    updateIcon(false);
 };
 
 const setupTabSwitching = () => {
