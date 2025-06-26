@@ -378,7 +378,7 @@ body {
     display: block;
     font-size: 1.1em;
     margin-bottom: 0.25rem;
-    color: #ffffff;
+    color: var(--text-color);
 }
 
 .skills-list ul {
@@ -538,38 +538,40 @@ body {
         padding-left: 25px;
     }
     .project-overlay {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: rgba(0, 0, 0, 0.8);
-        color: white;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        padding: 12px;
-        text-align: center;
-        opacity: 0;
-        transition: opacity 0.3s ease;
-        pointer-events: none;
+        padding: 12px 8px;
+        background: rgba(0, 0, 0, 0.9);
+        /* Stronger background on mobile */
     }
     .project-overlay h3 {
-        font-size: 1rem;
+        font-size: 0.9rem;
         margin-bottom: 6px;
+        line-clamp: 2;
     }
     .project-overlay p {
-        font-size: 0.8rem;
-        margin-bottom: 10px;
+        font-size: 0.75rem;
+        margin-bottom: 8px;
     }
     .view-project {
         font-size: 0.7rem;
-        padding: 4px 10px;
+        padding: 4px 8px;
     }
 }
 
 @media (max-width: 480px) {
+    .project-overlay {
+        padding: 8px 6px;
+    }
+    .project-overlay h3 {
+        font-size: 0.8rem;
+        line-height: 1.1;
+    }
+    .project-overlay p {
+        font-size: 0.7rem;
+    }
+    .view-project {
+        font-size: 0.65rem;
+        padding: 3px 6px;
+    }
     .profile-photo-stats {
         gap: 15px;
     }
@@ -587,8 +589,8 @@ body {
 
 @media (hover: none) {
     .project-overlay {
-        opacity: 1;
-        background: rgba(0, 0, 0, 0.6);
+        opacity: 0.95;
+        background: rgba(0, 0, 0, 0.75);
     }
     .project-overlay h3,
     .project-overlay p,
@@ -740,39 +742,62 @@ body {
 }
 
 [data-theme="light"] .project-overlay {
-    background: rgba(0, 0, 0, 0.75);
+    background: rgba(0, 0, 0, 0.8);
 }
 
 .project-overlay h3 {
-    font-size: 1.5rem;
-    margin-bottom: 10px;
-    transform: translateY(20px);
+    font-size: clamp(0.9rem, 2.5vw, 1.2rem);
+    /* Responsive font size */
+    font-weight: 600;
+    margin-bottom: 8px;
+    line-height: 1.2;
+    transform: translateY(15px);
     transition: transform 0.3s ease;
+    /* Prevent text overflow */
+    overflow: hidden;
+    display: -webkit-box;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
 }
 
 .project-overlay p {
-    color: #ccc;
-    margin-bottom: 15px;
-    transform: translateY(20px);
+    color: #e0e0e0;
+    font-size: clamp(0.75rem, 2vw, 0.9rem);
+    /* Responsive font size */
+    margin-bottom: 12px;
+    transform: translateY(15px);
     transition: transform 0.3s ease 0.1s;
+    line-height: 1.3;
+    /* Prevent text overflow */
+    overflow: hidden;
+    display: -webkit-box;
+    line-clamp: 1;
+    -webkit-box-orient: vertical;
 }
 
 .view-project {
     color: white;
-    padding: 8px 16px;
-    border: 2px solid white;
-    border-radius: 20px;
-    transform: translateY(20px);
-    transition: transform 0.3s ease 0.2s;
-    font-size: 0.9rem;
+    padding: 6px 12px;
+    border: 1.5px solid white;
+    border-radius: 15px;
+    font-size: clamp(0.7rem, 1.8vw, 0.85rem);
+    /* Responsive font size */
+    font-weight: 500;
+    transform: translateY(15px);
+    transition: all 0.3s ease 0.2s;
+    white-space: nowrap;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
 }
 
 .view-project i {
-    margin-right: 5px;
+    font-size: 0.8em;
 }
 
 .grid-item:hover img {
-    transform: scale(1.1);
+    transform: scale(1.05);
+    /* Reduced scale for smoother effect */
 }
 
 .grid-item:hover .project-overlay {
@@ -787,7 +812,8 @@ body {
 
 .grid-item:hover .view-project {
     background: white;
-    color: black;
+    color: #333;
+    border-color: white;
 }
 
 
@@ -913,4 +939,158 @@ body {
     right: 16px;
     top: 16px;
     background-color: var(--card-bg);
+}
+
+.album-image {
+    width: 50px;
+    /* Adjust size as needed */
+    height: 50px;
+    /* Adjust size as needed */
+    border-radius: 50%;
+    /* This makes the image rounded */
+    transition: transform 0.5s ease;
+}
+
+.album-image.playing {
+    animation: rotate 3s linear infinite;
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+
+/* Song Modal Styles */
+
+.song-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 2000;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(10px);
+}
+
+.song-modal.active {
+    display: flex;
+}
+
+.song-modal-content {
+    background: var(--card-bg);
+    border-radius: 20px;
+    padding: 40px;
+    max-width: 400px;
+    width: 90%;
+    text-align: center;
+    position: relative;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    animation: modalSlideIn 0.3s ease-out;
+}
+
+@keyframes modalSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(50px) scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.close-song-modal {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: none;
+    border: none;
+    color: var(--secondary-text);
+    font-size: 20px;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.close-song-modal:hover {
+    background: var(--border-color);
+    color: var(--text-color);
+}
+
+.modal-album-container {
+    margin-bottom: 30px;
+}
+
+.modal-album-image {
+    width: 200px;
+    height: 200px;
+    border-radius: 20px;
+    object-fit: cover;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease;
+}
+
+.modal-album-image:hover {
+    transform: scale(1.05);
+}
+
+.modal-song-info {
+    margin-top: 20px;
+}
+
+.modal-song-title {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: var(--text-color);
+    line-height: 1.3;
+}
+
+.modal-song-artist {
+    font-size: 18px;
+    color: var(--secondary-text);
+    margin: 0;
+    font-weight: 400;
+}
+
+
+/* Dark theme adjustments */
+
+[data-theme="dark"] .song-modal-content {
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+}
+
+
+/* Mobile responsive */
+
+@media (max-width: 480px) {
+    .song-modal-content {
+        padding: 30px 20px;
+        max-width: 350px;
+    }
+    .modal-album-image {
+        width: 160px;
+        height: 160px;
+        border-radius: 15px;
+    }
+    .modal-song-title {
+        font-size: 20px;
+    }
+    .modal-song-artist {
+        font-size: 16px;
+    }
 }
