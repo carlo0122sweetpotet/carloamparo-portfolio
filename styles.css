@@ -629,6 +629,10 @@ body {
     color: #1877f2;
 }
 
+.social-icon:hover .fa-instagram {
+    color: #C13584
+}
+
 .social-icon:hover .fa-tiktok {
     color: #ff0050;
 }
