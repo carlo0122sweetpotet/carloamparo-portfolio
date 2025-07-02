@@ -35,9 +35,7 @@ body {
     overflow-x: hidden;
 }
 
-
 /* Cover Photo Styles */
-
 .cover-photo-section {
     position: relative;
     width: 100%;
@@ -52,7 +50,6 @@ body {
     width: 100%;
     height: 100%;
     object-fit: fill;
-    /* Changed from 'cover' to 'fill' to stretch the image */
     transition: transform 0.3s ease;
 }
 
@@ -108,11 +105,13 @@ body {
     padding: 20px;
 }
 
+/* Fixed Desktop Profile Header Layout */
 .profile-header {
     display: flex;
-    gap: 80px;
+    flex-direction: column;
+    gap: 20px;
     margin-bottom: 44px;
-    flex-wrap: wrap;
+    padding: 0 20px;
 }
 
 .profile-photo {
@@ -125,20 +124,28 @@ body {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
+.profile-photo-stats {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
 .profile-info {
     flex: 1;
-    min-width: 300px;
 }
 
 .profile-info h1 {
     font-size: 20px;
     font-weight: 400;
+    margin-bottom: 10px;
 }
 
 .profile-stats {
     display: flex;
     gap: 40px;
-    margin: 20px 0;
+    margin-top: 20px;
+    justify-content: flex-start;
+    margin-left: 0;
 }
 
 .stat {
@@ -146,7 +153,6 @@ body {
 }
 
 .bio {
-    margin-top: 20px;
     font-size: 14px;
 }
 
@@ -156,6 +162,25 @@ body {
 
 [data-theme="dark"] .bio a {
     color: #e0f1ff;
+}
+
+/* Music Section - Positioned better in desktop */
+.music-section {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    max-width: 350px;
+    width: 100%;
+}
+
+.music-section:hover {
+    background: var(--border-color);
 }
 
 .tab-nav {
@@ -274,23 +299,6 @@ body {
     color: var(--text-color);
 }
 
-.music-section {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 12px 16px;
-    background: var(--card-bg);
-    border: 1px solid var(--border-color);
-    border-radius: 20px;
-    margin: 15px 0;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.music-section:hover {
-    background: var(--border-color);
-}
-
 .music-icon {
     width: 40px;
     height: 40px;
@@ -391,34 +399,28 @@ body {
     margin-bottom: 0.25rem;
 }
 
+/* Mobile Styles - Keep existing mobile styles unchanged */
 @media (max-width: 735px) {
     body {
         overflow-x: hidden;
-        /* Prevent horizontal scroll on body */
     }
     .music-section {
         margin: 10px 0;
-        /* Remove horizontal margin */
+        max-width: none;
     }
     .container {
         padding: 0 20px;
-        /* Add consistent padding */
         max-width: 100vw;
-        /* Ensure container doesn't exceed viewport */
     }
     .profile-container {
         padding: 20px 0;
-        /* Remove horizontal padding, let container handle it */
     }
     .tab-content {
         padding: 20px 0;
-        /* Remove horizontal padding, let container handle it */
     }
     .cover-photo-section {
         margin: 0 -10px 20px -10px;
-        /* Extend cover to screen edges */
         width: calc(100% + 20px);
-        /* Account for container padding */
     }
     .cover-title {
         font-size: 1.8rem;
@@ -501,13 +503,6 @@ body {
         margin-bottom: 2px;
         display: block;
     }
-    .bio {
-        text-align: left;
-        margin-top: 10px;
-        font-size: 15px;
-        line-height: 1.5;
-        padding: 0;
-    }
     .grid {
         gap: 10px;
     }
@@ -540,7 +535,6 @@ body {
     .project-overlay {
         padding: 12px 8px;
         background: rgba(0, 0, 0, 0.9);
-        /* Stronger background on mobile */
     }
     .project-overlay h3 {
         font-size: 0.9rem;
@@ -697,7 +691,8 @@ body {
 .company-logo img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
+    padding: 8px;
 }
 
 .experience-details {
@@ -751,13 +746,11 @@ body {
 
 .project-overlay h3 {
     font-size: clamp(0.9rem, 2.5vw, 1.2rem);
-    /* Responsive font size */
     font-weight: 600;
     margin-bottom: 8px;
     line-height: 1.2;
     transform: translateY(15px);
     transition: transform 0.3s ease;
-    /* Prevent text overflow */
     overflow: hidden;
     display: -webkit-box;
     line-clamp: 2;
@@ -767,12 +760,10 @@ body {
 .project-overlay p {
     color: #e0e0e0;
     font-size: clamp(0.75rem, 2vw, 0.9rem);
-    /* Responsive font size */
     margin-bottom: 12px;
     transform: translateY(15px);
     transition: transform 0.3s ease 0.1s;
     line-height: 1.3;
-    /* Prevent text overflow */
     overflow: hidden;
     display: -webkit-box;
     line-clamp: 1;
@@ -785,7 +776,6 @@ body {
     border: 1.5px solid white;
     border-radius: 15px;
     font-size: clamp(0.7rem, 1.8vw, 0.85rem);
-    /* Responsive font size */
     font-weight: 500;
     transform: translateY(15px);
     transition: all 0.3s ease 0.2s;
@@ -799,9 +789,19 @@ body {
     font-size: 0.8em;
 }
 
+@media (min-width: 736px) {
+    .grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+    }
+    
+    .grid-item {
+        aspect-ratio: 1;
+    }
+}
+
 .grid-item:hover img {
     transform: scale(1.05);
-    /* Reduced scale for smoother effect */
 }
 
 .grid-item:hover .project-overlay {
@@ -820,9 +820,7 @@ body {
     border-color: white;
 }
 
-
 /* Certification Popup Styles */
-
 .cert-count {
     cursor: pointer;
     transition: color 0.3s;
@@ -947,11 +945,8 @@ body {
 
 .album-image {
     width: 50px;
-    /* Adjust size as needed */
     height: 50px;
-    /* Adjust size as needed */
     border-radius: 50%;
-    /* This makes the image rounded */
     transition: transform 0.5s ease;
 }
 
@@ -968,9 +963,7 @@ body {
     }
 }
 
-
 /* Song Modal Styles */
-
 .song-modal {
     display: none;
     position: fixed;
@@ -1071,16 +1064,12 @@ body {
     font-weight: 400;
 }
 
-
 /* Dark theme adjustments */
-
 [data-theme="dark"] .song-modal-content {
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
 }
 
-
 /* Mobile responsive */
-
 @media (max-width: 480px) {
     .song-modal-content {
         padding: 30px 20px;
