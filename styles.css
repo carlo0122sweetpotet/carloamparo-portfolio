@@ -1087,3 +1087,145 @@ body {
         font-size: 16px;
     }
 }
+
+/* Project Modal Styles - Add this to your existing CSS */
+.project-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 2000;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(10px);
+}
+
+.project-modal.active {
+    display: flex;
+}
+
+.project-modal-content {
+    background: var(--card-bg);
+    border-radius: 20px;
+    padding: 40px;
+    max-width: 500px;
+    width: 90%;
+    text-align: center;
+    position: relative;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    animation: modalSlideIn 0.3s ease-out;
+}
+
+.close-project-modal {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: none;
+    border: none;
+    color: var(--secondary-text);
+    font-size: 20px;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.close-project-modal:hover {
+    background: var(--border-color);
+    color: var(--text-color);
+}
+
+.modal-project-container {
+    margin-bottom: 30px;
+}
+
+.modal-project-image {
+    width: 100%;
+    max-width: 400px;
+    height: auto; /* Changed from fixed 200px to auto */
+    max-height: 300px; /* Added max-height to prevent oversized images */
+    border-radius: 15px;
+    object-fit: contain; /* Changed from cover to contain for better fit */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease;
+}
+
+.modal-project-image:hover {
+    transform: scale(1.02);
+}
+
+.modal-project-info {
+    margin-top: 20px;
+}
+
+.modal-project-title {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: var(--text-color);
+    line-height: 1.3;
+}
+
+.modal-project-tech {
+    font-size: 16px;
+    color: var(--secondary-text);
+    margin-bottom: 20px;
+    font-weight: 400;
+}
+
+.modal-view-project {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #0095f6;
+    color: white;
+    padding: 12px 24px;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.modal-view-project:hover {
+    background: #0084d1;
+    transform: translateY(-2px);
+}
+
+/* Dark theme adjustments */
+[data-theme="dark"] .project-modal-content {
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+}
+
+/* Mobile responsive */
+@media (max-width: 480px) {
+    .project-modal-content {
+        padding: 30px 20px;
+        max-width: 350px;
+    }
+    
+    .modal-project-image {
+        max-width: 100%;
+        max-height: 200px;
+        border-radius: 12px;
+    }
+    
+    .modal-project-title {
+        font-size: 20px;
+    }
+    
+    .modal-project-tech {
+        font-size: 14px;
+    }
+    
+    .modal-view-project {
+        padding: 10px 20px;
+        font-size: 14px;
+    }
+}
