@@ -3,6 +3,7 @@ const init = () => {
     setupThemeToggle();
     setupCertPopup();
     setupMusicPlayer();
+    setupProjectPopup();
 };
 
 const setupMusicPlayer = () => {
@@ -252,6 +253,85 @@ const setupCertPopup = () => {
         });
     });
 };
+
+const setupProjectPopup = () => {
+    const projectItems = document.querySelectorAll('.grid-item');
+    
+    projectItems.forEach(item => {
+        item.addEventListener('click', (e) => {
+            e.preventDefault(); // Prevent immediate navigation
+            
+            const projectTitle = item.querySelector('.project-overlay h3').textContent;
+            const projectTech = item.querySelector('.project-overlay p').textContent;
+            const projectImage = item.querySelector('img').src;
+            const projectUrl = item.href;
+            
+            openProjectModal(projectTitle, projectTech, projectImage, projectUrl);
+        });
+    });
+};
+
+function openProjectModal(title, tech, image, url) {
+    // Create modal if it doesn't exist
+    let modal = document.getElementById('project-modal');
+    if (!modal) {
+        modal = createProjectModal();
+        document.body.appendChild(modal);
+    }
+    
+    // Update modal content
+    const modalImage = modal.querySelector('.modal-project-image');
+    const modalTitle = modal.querySelector('.modal-project-title');
+    const modalTech = modal.querySelector('.modal-project-tech');
+    const modalViewBtn = modal.querySelector('.modal-view-project');
+    
+    modalImage.src = image;
+    modalTitle.textContent = title;
+    modalTech.textContent = tech;
+    modalViewBtn.href = url;
+    
+    // Show modal
+    modal.classList.add('active');
+}
+
+function createProjectModal() {
+    const modal = document.createElement('div');
+    modal.id = 'project-modal';
+    modal.className = 'project-modal';
+    
+    modal.innerHTML = `
+        <div class="project-modal-content">
+            <button class="close-project-modal">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="modal-project-container">
+                <img class="modal-project-image" src="" alt="Project Image">
+            </div>
+            <div class="modal-project-info">
+                <h3 class="modal-project-title"></h3>
+                <p class="modal-project-tech"></p>
+                <a class="modal-view-project" href="" target="_blank" rel="noopener noreferrer">
+                    <i class="fas fa-external-link-alt"></i> View Project
+                </a>
+            </div>
+        </div>
+    `;
+    
+    // Add event listeners for closing modal
+    const closeBtn = modal.querySelector('.close-project-modal');
+    closeBtn.addEventListener('click', () => {
+        modal.classList.remove('active');
+    });
+    
+    // Close modal when clicking outside
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            modal.classList.remove('active');
+        }
+    });
+    
+    return modal;
+}
 
 // Initialize when DOM is loaded
 document.addEventListener('DOMContentLoaded', init);
