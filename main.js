@@ -4,6 +4,7 @@ const init = () => {
     setupCertPopup();
     setupMusicPlayer();
     setupProjectPopup();
+    setupProfilePhotoPopup();
 };
 
 const setupMusicPlayer = () => {
@@ -212,10 +213,13 @@ const setupThemeToggle = () => {
 const setupCertPopup = () => {
     const certCount = document.querySelector('.cert-count');
     const certPopup = document.getElementById('cert-popup');
+    const coeSelectionPopup = document.getElementById('coe-selection-popup');
     const imagePopup = document.getElementById('cert-image-popup');
     const closePopup = document.querySelector('.close-popup');
+    const closeCoePopup = document.querySelector('.close-coe-popup');
     const closeImagePopup = document.querySelector('.close-image-popup');
     const certItems = document.querySelectorAll('.cert-item');
+    const coeOptions = document.querySelectorAll('.coe-option');
     const certImage = document.getElementById('cert-image');
 
     // Open certification list popup
@@ -228,6 +232,11 @@ const setupCertPopup = () => {
         certPopup.classList.remove('active');
     });
 
+    // Close COE selection popup
+    closeCoePopup.addEventListener('click', () => {
+        coeSelectionPopup.classList.remove('active');
+    });
+
     // Close image popup
     closeImagePopup.addEventListener('click', () => {
         imagePopup.classList.remove('active');
@@ -238,6 +247,9 @@ const setupCertPopup = () => {
         if (e.target === certPopup) {
             certPopup.classList.remove('active');
         }
+        if (e.target === coeSelectionPopup) {
+            coeSelectionPopup.classList.remove('active');
+        }
         if (e.target === imagePopup) {
             imagePopup.classList.remove('active');
         }
@@ -246,11 +258,40 @@ const setupCertPopup = () => {
     // Handle certificate item clicks
     certItems.forEach(item => {
         item.addEventListener('click', () => {
-            const imageUrl = item.dataset.image;
+            if (item.dataset.type === 'coe') {
+                // Open COE selection popup instead of image
+                certPopup.classList.remove('active');
+                coeSelectionPopup.classList.add('active');
+            } else {
+                // Open image directly for other certificates
+                const imageUrl = item.dataset.image;
+                certImage.src = imageUrl;
+                certPopup.classList.remove('active');
+                imagePopup.classList.add('active');
+            }
+        });
+    });
+
+    // Handle COE option clicks
+    coeOptions.forEach(option => {
+        option.addEventListener('click', () => {
+            const imageUrl = option.dataset.image;
             certImage.src = imageUrl;
-            certPopup.classList.remove('active');
+            coeSelectionPopup.classList.remove('active');
             imagePopup.classList.add('active');
         });
+    });
+};
+
+const setupProfilePhotoPopup = () => {
+    const profilePhoto = document.getElementById('profilePhoto');
+    const imagePopup = document.getElementById('cert-image-popup');
+    const certImage = document.getElementById('cert-image');
+    const closeImagePopup = document.querySelector('.close-image-popup');
+
+    profilePhoto.addEventListener('click', () => {
+        certImage.src = profilePhoto.src;
+        imagePopup.classList.add('active');
     });
 };
 
