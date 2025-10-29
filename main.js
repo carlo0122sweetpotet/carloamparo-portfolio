@@ -17,7 +17,7 @@ const setupMusicPlayer = () => {
     let isPlaying = false;
     let audio = null;
 
-    const audioSrc = 'assets/Eien-No-Akuruhi.mp3';
+    const audioSrc = 'assets/Ado風と私の物語.mp3';
 
     // Function to update the icon
     function updateIcon(isPlaying) {
