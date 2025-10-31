@@ -5,6 +5,58 @@ const init = () => {
     setupMusicPlayer();
     setupProjectPopup();
     setupProfilePhotoPopup();
+    setupProjectsNavigation();
+    setupExperienceNavigation();
+};
+
+const setupExperienceNavigation = () => {
+    const experienceStat = document.querySelectorAll('.profile-stats .stat')[1];
+
+    experienceStat.addEventListener('click', () => {
+        // Switch to experience tab
+        const experienceTab = document.querySelector('.tab[data-tab="experience"]');
+        const allTabs = document.querySelectorAll('.tab');
+        const allTabContents = document.querySelectorAll('.tab-content');
+
+        // Remove active class from all
+        allTabs.forEach(t => t.classList.remove('active'));
+        allTabContents.forEach(c => c.classList.remove('active'));
+
+        // Activate experience tab
+        experienceTab.classList.add('active');
+        document.getElementById('experience').classList.add('active');
+
+        // Scroll to experience section smoothly
+        document.getElementById('experience').scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+        });
+    });
+};
+
+const setupProjectsNavigation = () => {
+    const projectsStat = document.querySelector('.profile-stats .stat:first-child');
+
+    projectsStat.addEventListener('click', () => {
+        // Switch to projects tab
+        const projectsTab = document.querySelector('.tab[data-tab="projects"]');
+        const allTabs = document.querySelectorAll('.tab');
+        const allTabContents = document.querySelectorAll('.tab-content');
+
+        // Remove active class from all
+        allTabs.forEach(t => t.classList.remove('active'));
+        allTabContents.forEach(c => c.classList.remove('active'));
+
+        // Activate projects tab
+        projectsTab.classList.add('active');
+        document.getElementById('projects').classList.add('active');
+
+        // Scroll to projects section smoothly
+        document.getElementById('projects').scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+        });
+    });
 };
 
 const setupMusicPlayer = () => {
@@ -154,7 +206,7 @@ const setupMusicPlayer = () => {
         return modal;
     }
 
-    window.updateSongInfo = function(title, artist) {
+    window.updateSongInfo = function (title, artist) {
         document.getElementById('songTitle').textContent = title;
         document.getElementById('songArtist').textContent = artist;
     };
@@ -297,16 +349,16 @@ const setupProfilePhotoPopup = () => {
 
 const setupProjectPopup = () => {
     const projectItems = document.querySelectorAll('.grid-item');
-    
+
     projectItems.forEach(item => {
         item.addEventListener('click', (e) => {
             e.preventDefault(); // Prevent immediate navigation
-            
+
             const projectTitle = item.querySelector('.project-overlay h3').textContent;
             const projectTech = item.querySelector('.project-overlay p').textContent;
             const projectImage = item.querySelector('img').src;
             const projectUrl = item.href;
-            
+
             openProjectModal(projectTitle, projectTech, projectImage, projectUrl);
         });
     });
@@ -319,18 +371,18 @@ function openProjectModal(title, tech, image, url) {
         modal = createProjectModal();
         document.body.appendChild(modal);
     }
-    
+
     // Update modal content
     const modalImage = modal.querySelector('.modal-project-image');
     const modalTitle = modal.querySelector('.modal-project-title');
     const modalTech = modal.querySelector('.modal-project-tech');
     const modalViewBtn = modal.querySelector('.modal-view-project');
-    
+
     modalImage.src = image;
     modalTitle.textContent = title;
     modalTech.textContent = tech;
     modalViewBtn.href = url;
-    
+
     // Show modal
     modal.classList.add('active');
 }
@@ -339,7 +391,7 @@ function createProjectModal() {
     const modal = document.createElement('div');
     modal.id = 'project-modal';
     modal.className = 'project-modal';
-    
+
     modal.innerHTML = `
         <div class="project-modal-content">
             <button class="close-project-modal">
@@ -357,20 +409,20 @@ function createProjectModal() {
             </div>
         </div>
     `;
-    
+
     // Add event listeners for closing modal
     const closeBtn = modal.querySelector('.close-project-modal');
     closeBtn.addEventListener('click', () => {
         modal.classList.remove('active');
     });
-    
+
     // Close modal when clicking outside
     modal.addEventListener('click', (e) => {
         if (e.target === modal) {
             modal.classList.remove('active');
         }
     });
-    
+
     return modal;
 }
 
