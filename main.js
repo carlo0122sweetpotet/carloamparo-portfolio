@@ -7,6 +7,18 @@ const init = () => {
     setupProfilePhotoPopup();
     setupProjectsNavigation();
     setupExperienceNavigation();
+    
+    // Initialize the minigames hub when Minigames tab is clicked
+    const minigamesTab = document.querySelector('.tab[data-tab="minigames"]');
+    if (minigamesTab) {
+        minigamesTab.addEventListener('click', () => {
+            setTimeout(() => {
+                if (window.MinigamesHub) {
+                    window.MinigamesHub.init();
+                }
+            }, 100);
+        }, { once: true });
+    }
 };
 
 const setupExperienceNavigation = () => {
